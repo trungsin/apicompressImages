@@ -46,7 +46,7 @@ module.exports = {
     },
     opts: (req, res) => {
 
-        let sql = 'SELECT * FROM product_images WHERE timeoptimal=0';
+        let sql = 'SELECT * FROM product_images WHERE timeoptimal=0 limit 1, 1000';
         //const [ rows , fields ] = await db.execute(sql);
         db.query(sql, function (err, result, fields) {
             // if any error while executing above query, throw error
@@ -98,7 +98,7 @@ module.exports = {
                     //res.json(statistic); 
                 });
                 //ket thuc nen anh
-              console.log(row.apply);
+              //console.log(row.apply);
             });
             res.json(result);
         });
