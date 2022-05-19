@@ -1,7 +1,7 @@
 'use strict';
 module.exports = function(app) {
   let productsCtrl = require('./controllers/ProductsController');
-  let imagesCtrl = require('./controllers/ImagesContrller');
+  let imagesCtrl = require('./controllers/ImagesController');
   let optimzeCtrl = require('./controllers/OptimzeController');
 
   // todoList Routes
