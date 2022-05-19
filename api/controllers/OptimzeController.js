@@ -34,9 +34,13 @@ module.exports = {
             }
             console.log('Sucefully processed file');
             console.log(statistic);
-            const stringdata = JSON.stringify(statistic);
-            const obj = JSON.parse(stringdata);
-            console.log(obj.input);
+            if ( typeof statistic !== 'undefined' && statistic )
+            {
+                const stringdata = JSON.stringify(statistic);
+                const obj = JSON.parse(stringdata);
+                console.log(obj.input);    
+            }
+            
             res.json(statistic); 
         });
     },
