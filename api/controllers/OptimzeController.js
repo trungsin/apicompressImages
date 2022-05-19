@@ -46,7 +46,7 @@ module.exports = {
     },
     opts: (req, res) => {
 
-        let sql = 'SELECT * FROM product_images WHERE timeoptimal=0 limit 1, 50';
+        let sql = 'SELECT * FROM product_images WHERE timeoptimal=0 limit 0, 24';
         //const [ rows , fields ] = await db.execute(sql);
         db.query(sql, function (err, result, fields) {
             // if any error while executing above query, throw error
