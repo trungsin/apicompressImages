@@ -33,7 +33,7 @@ module.exports = {
                 throw error
             }
             console.log('Sucefully processed file');
-            //console.log(statistic)
+            console.log(statistic)
             const obj = JSON.parse(statistic);
             console.log(obj.input);
             res.json(statistic); 
