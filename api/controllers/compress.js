@@ -1,7 +1,7 @@
 'use strict'
 const { compress } = require('compress-images/promise');
 module.exports = {
-	compress_image: (input, output) => {
+	compress_image: async (input, output) => {
 		//let input = req.params.input;
         const processImages = async (onProgress) => {
         	console.log('input: ' + input);
