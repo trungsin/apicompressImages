@@ -11,8 +11,8 @@ module.exports = {
     opt: (req, res) => {
         let input = req.params.input;
         //res.json(compress.compress_image(rootInput + input,rootOutput));
-        let result =  await compress.compress_image(rootInput + input,rootOutput);
-        console.log(result.input);
+        let result =  compress.compress_image(rootInput + input,rootOutput);
+        console.log(result);
         // const processImages = async (onProgress) => {
         //     const result = await compress({
         //         source: rootInput + input,
