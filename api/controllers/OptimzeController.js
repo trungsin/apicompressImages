@@ -72,7 +72,7 @@ module.exports = {
                     // errors - all errros happened list
                 };
             
-                processImages((error, statistic, completed) => {
+                processImages( async (error, statistic, completed) => {
                     // if (error) {
                     //     console.log('Error happen while processing file');
                     //     console.log(error);
