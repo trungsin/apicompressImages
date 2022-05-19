@@ -1,6 +1,7 @@
 'use strict';
 module.exports = function(app) {
   let productsCtrl = require('./controllers/ProductsController');
+  let imagesCtrl = require('./controllers/ImagesContrller');
   let optimzeCtrl = require('./controllers/OptimzeController');
 
   // todoList Routes
@@ -12,6 +13,18 @@ module.exports = function(app) {
     .get(productsCtrl.detail)
     .put(productsCtrl.update)
     .delete(productsCtrl.delete);
+
+  app.route('/images')
+    .get(imagesCtrl.get)
+    .post(imagesCtrl.store);
+
+  app.route('/images/:imageID')
+    .get(imagesCtrl.detail)
+    .put(imagesCtrl.update)
+    .delete(imagesCtrl.delete);
+
   app.route('/optimze/:input')
     .get(optimzeCtrl.opt);
+  app.route('/optimzes')
+    .get(optimzeCtrl.opts);
 };
