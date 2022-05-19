@@ -28,7 +28,7 @@ module.exports = {
                 throw error
             }
             console.log('Sucefully processed file');
-            console.log(statistic)
+           // console.log(statistic)
             return statistic;
         });
 	}
