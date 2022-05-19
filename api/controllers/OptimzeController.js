@@ -92,7 +92,7 @@ module.exports = {
                         });
                     } else
                     {
-                        continue;
+                        ;
                     }
                     
                     //res.json(statistic); 
