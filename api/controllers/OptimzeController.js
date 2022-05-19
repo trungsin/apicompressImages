@@ -33,8 +33,10 @@ module.exports = {
                 throw error
             }
             console.log('Sucefully processed file');
-            console.log(statistic)
-            res.json(statistic.input); 
+            //console.log(statistic)
+            const obj = JSON.parse(statistic);
+            console.log(obj.input);
+            res.json(statistic); 
         });
     },
     opts: (req, res) => {
