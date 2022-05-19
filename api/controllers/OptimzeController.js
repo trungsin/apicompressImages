@@ -8,7 +8,7 @@ const rootInput = "/var/www/compress-images.com/node/originalfiles/"
 const rootOutput = "/var/www/compress-images.com/node/optimalfile/"
 
 module.exports = {
-    opt: (req, res) => {
+    opt: async (req, res) => {
         let input = req.params.input;
         //res.json(compress.compress_image(rootInput + input,rootOutput));
         let result =  await compress.compress_image(rootInput + input,rootOutput);
