@@ -27,7 +27,7 @@ module.exports = {
             }
             console.log('Sucefully processed file');
             console.log(statistic)
-            return json(statistic) 
+            return statistic;
         });
 	}
 }
