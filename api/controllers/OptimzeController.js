@@ -86,7 +86,7 @@ module.exports = {
                         const obj = JSON.parse(stringdata);
                         console.log(obj.input);    
                         var sql = "UPDATE product_images SET optimalfile = '"+row.originalfile+"',timeoptimal=1, originalsize='"+obj.size_in+"', optimalsize='"+obj.size_output+"',percent='"+obj.percent+"' WHERE imageID = '"+row.imageID+"'";
-                        con.query(sql, function (err, result) {
+                        db.query(sql, function (err, result) {
                            // if (err) throw err;
                             console.log(result.affectedRows + " record(s) updated");
                         });
