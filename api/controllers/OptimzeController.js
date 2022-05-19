@@ -33,8 +33,8 @@ module.exports = {
                 throw error
             }
             console.log('Sucefully processed file');
-            console.log(statistic)
-            stringdata = JSON.stringify(statistic);
+            console.log(statistic);
+            const stringdata = JSON.stringify(statistic);
             const obj = JSON.parse(stringdata);
             console.log(obj.input);
             res.json(statistic); 
