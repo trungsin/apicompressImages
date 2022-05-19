@@ -48,10 +48,14 @@ module.exports = {
             // iterate for all the rows in result
             Object.keys(result).forEach(function(key) {
               var row = result[key];
-              console.log(row.apply;
+              console.log(row.apply);
             });
             res.json(result);
         });
+        // db.query(sql, (err, response) => {
+        //     if (err) throw err
+        //     res.json(response)
+        // })
         // let input = req.params.input;
         // const processImages = async (onProgress) => {
         //     const result = await compress({
