@@ -58,7 +58,7 @@ module.exports = {
                 var row = result[key];
                 try {
                   if (fs.existsSync(rootOutput+row.originalfile)) {
-                    fs.unlink('sample.txt', function (err) {
+                    fs.unlink(rootOutput+row.originalfile, function (err) {
                         if (err)  console.log(err);
                         // if no error, file has been deleted successfully
                         console.log('File deleted!');
