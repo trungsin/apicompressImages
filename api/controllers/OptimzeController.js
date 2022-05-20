@@ -6,6 +6,7 @@ const db = require('./../db')
 const { compress } = require('compress-images/promise');
 const rootInput = "/var/www/compress-images.com/node/originalfiles/"
 const rootOutput = "/var/www/compress-images.com/node/optimalfile/"
+var fs = require('fs');
 
 module.exports = {
     opt: (req, res) => {
@@ -55,6 +56,17 @@ module.exports = {
             // iterate for all the rows in result
             Object.keys(result).forEach(function(key) {
                 var row = result[key];
+                try {
+                  if (fs.existsSync(rootOutput+row.originalfile)) {
+                    fs.unlink('sample.txt', function (err) {
+                        if (err)  console.log(err);
+                        // if no error, file has been deleted successfully
+                        console.log('File deleted!');
+                    });
+                  }
+                } catch(err) {
+                  console.error(err)
+                }
                 // nen anh
                 const processImages = async (onProgress) => {
                     const result = await compress({
