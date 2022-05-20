@@ -54,7 +54,7 @@ module.exports = {
             if (err) throw err;
             // if there is no error, you have the result
             // iterate for all the rows in result
-            Object.keys(result).forEach(function(key) {
+            Object.keys(result).forEach(async function(key) {
                 var row = result[key];
                 try {
                   if (fs.existsSync(rootOutput+row.originalfile)) {
