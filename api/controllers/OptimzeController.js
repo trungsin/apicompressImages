@@ -68,48 +68,57 @@ module.exports = {
                   console.error(err)
                 }
                 // nen anh
-                const processImages = async (onProgress) => {
-                    const result = await compress({
-                        source: rootInput + row.originalfile,
-                        destination: rootOutput,
-                        onProgress,
-                        enginesSetup: {
-                            jpg: { engine: 'mozjpeg', command: ['-quality', '60']},
-                            png: { engine: 'pngquant', command: ['--quality=20-50', '-o']},
-                        }
-                    });
-            
-                    const { statistics, errors } = result;
-                    // statistics - all processed images list
-                    // errors - all errros happened list
-                };
-            
-                processImages( async (error, statistic, completed) => {
-                    // if (error) {
-                    //     console.log('Error happen while processing file');
-                    //     console.log(error);
-                    //     throw error
-                    // }
-                    console.log('Sucefully processed file');
-                    console.log(statistic);
-                    if ( typeof statistic !== 'undefined' && statistic )
-                    {
-                        const stringdata = JSON.stringify(statistic);
-                        const obj = JSON.parse(stringdata);
-                        console.log(obj.input);    
-                        var sql = "UPDATE product_images SET optimalfile = '"+row.originalfile+"',timeoptimal=1, originalsize='"+obj.size_in+"', optimalsize='"+obj.size_output+"',percent='"+obj.percent+"' WHERE imageID = '"+row.imageID+"'";
-                        await db.query(sql, function (err, result) {
-                           // if (err) throw err;
-                            console.log(result.affectedRows + " record(s) updated");
+                //check anh ton truoc khi nen
+                if (fs.existsSync(rootInput+row.originalfile)) {
+                    const processImages = async (onProgress) => {
+                        const result = await compress({
+                            source: rootInput + row.originalfile,
+                            destination: rootOutput,
+                            onProgress,
+                            enginesSetup: {
+                                jpg: { engine: 'mozjpeg', command: ['-quality', '60']},
+                                png: { engine: 'pngquant', command: ['--quality=20-50', '-o']},
+                            }
                         });
-                    } else
-                    {
-                        ;
-                    }
-                    
-                    //res.json(statistic); 
-                });
-                //ket thuc nen anh
+                
+                        const { statistics, errors } = result;
+                        // statistics - all processed images list
+                        // errors - all errros happened list
+                    };
+                
+                    processImages( async (error, statistic, completed) => {
+                        // if (error) {
+                        //     console.log('Error happen while processing file');
+                        //     console.log(error);
+                        //     throw error
+                        // }
+                        console.log('Sucefully processed file');
+                        console.log(statistic);
+                        if ( typeof statistic !== 'undefined' && statistic )
+                        {
+                            const stringdata = JSON.stringify(statistic);
+                            const obj = JSON.parse(stringdata);
+                            console.log(obj.input);    
+                            var sql = "UPDATE product_images SET optimalfile = '"+row.originalfile+"',timeoptimal=1, originalsize='"+obj.size_in+"', optimalsize='"+obj.size_output+"',percent='"+obj.percent+"' WHERE imageID = '"+row.imageID+"'";
+                            await db.query(sql, function (err, result) {
+                            // if (err) throw err;
+                                console.log(result.affectedRows + " record(s) updated");
+                            });
+                        } else
+                        {
+                            ;
+                        }
+                        
+                        //res.json(statistic); 
+                    });
+                } else {
+                    var sql = "UPDATE product_images SET timeoptimal=-1 WHERE imageID = '"+row.imageID+"'";
+                    await db.query(sql, function (err, result) {
+                    // if (err) throw err;
+                        console.log(result.affectedRows + " record(s) updated");
+                    });
+                }
+                //ket thuc nen anh 
               //console.log(row.apply);
             });
             res.json(result);
