@@ -112,7 +112,7 @@ module.exports = {
                         //res.json(statistic); 
                     });
                 } else {
-                    var sql = "UPDATE product_images SET timeoptimal=-1 WHERE imageID = '"+row.imageID+"'";
+                    var sql = "UPDATE product_images SET timeoptimal=9 WHERE imageID = '"+row.imageID+"'";
                     await db.query(sql, function (err, result) {
                     // if (err) throw err;
                         console.log(result.affectedRows + " record(s) updated");
