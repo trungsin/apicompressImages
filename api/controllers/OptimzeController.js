@@ -122,6 +122,7 @@ module.exports = {
             });
             await db.query(sqli, function (err, resulti) {
             // if (err) throw err;
+                console.log(sqli);
                 console.log(resulti.affectedRows + " record(s) updated");
             });
             res.json(result);
