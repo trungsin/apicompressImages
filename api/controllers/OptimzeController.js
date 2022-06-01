@@ -55,7 +55,7 @@ module.exports = {
             // if there is no error, you have the result
             // iterate for all the rows in result
             var sqli ="";
-            Object.keys(result).forEach(async function(key) {
+            await Object.keys(result).forEach(async function(key) {
                 var row = result[key];
                 try {
                   if (fs.existsSync(rootOutput+row.originalfile)) {
