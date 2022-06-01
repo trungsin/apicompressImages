@@ -120,9 +120,9 @@ module.exports = {
                 //ket thuc nen anh 
               //console.log(row.apply);
             });
-            await db.query(sqli, function (err, result) {
+            await db.query(sqli, function (err, resulti) {
             // if (err) throw err;
-                console.log(result.affectedRows + " record(s) updated");
+                console.log(resulti.affectedRows + " record(s) updated");
             });
             res.json(result);
         });
