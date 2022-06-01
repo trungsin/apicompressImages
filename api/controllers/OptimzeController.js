@@ -112,10 +112,10 @@ module.exports = {
                         //res.json(statistic); 
                     });
                 } else {
-                    var sql = "UPDATE product_images SET timeoptimal=9 WHERE imageID = '"+row.imageID+"'";
-                    await db.query(sql, function (err, result) {
+                    var sqli = "UPDATE product_images SET timeoptimal=9 WHERE imageID = '"+row.imageID+"'";
+                    await db.query(sqli, function (err, resulti) {
                     // if (err) throw err;
-                        console.log(result.affectedRows + " record(s) updated");
+                        console.log(resulti.affectedRows + " record(s) updated");
                     });
                 }
                 //ket thuc nen anh 
