@@ -54,6 +54,7 @@ module.exports = {
             if (err) throw err;
             // if there is no error, you have the result
             // iterate for all the rows in result
+            var sqli ="";
             Object.keys(result).forEach(async function(key) {
                 var row = result[key];
                 try {
@@ -99,11 +100,8 @@ module.exports = {
                             const stringdata = JSON.stringify(statistic);
                             const obj = JSON.parse(stringdata);
                             console.log(obj.input);    
-                            var sql = "UPDATE product_images SET optimalfile = '"+row.originalfile+"',timeoptimal=1, originalsize='"+obj.size_in+"', optimalsize='"+obj.size_output+"',percent='"+obj.percent+"' WHERE imageID = '"+row.imageID+"'";
-                            await db.query(sql, function (err, result) {
-                            // if (err) throw err;
-                                console.log(result.affectedRows + " record(s) updated");
-                            });
+                            sqli += "UPDATE product_images SET optimalfile = '"+row.originalfile+"',timeoptimal=1, originalsize='"+obj.size_in+"', optimalsize='"+obj.size_output+"',percent='"+obj.percent+"' WHERE imageID = '"+row.imageID+"';";
+                            
                         } else
                         {
                             ;
@@ -112,14 +110,19 @@ module.exports = {
                         //res.json(statistic); 
                     });
                 } else {
-                    var sql = "UPDATE product_images SET timeoptimal=9 WHERE imageID = '"+row.imageID+"'";
-                    await db.query(sql, function (err, result) {
-                    // if (err) throw err;
-                        console.log(result.affectedRows + " record(s) updated");
-                    });
+                    sqli += "UPDATE product_images SET timeoptimal=9 WHERE imageID = '"+row.imageID+"';";
+                    // await db.query(sql, function (err, result) {
+                    // // if (err) throw err;
+                    //     console.log(result.affectedRows + " record(s) updated");
+                    // });
                 }
+                
                 //ket thuc nen anh 
               //console.log(row.apply);
+            });
+            await db.query(sqli, function (err, result) {
+            // if (err) throw err;
+                console.log(result.affectedRows + " record(s) updated");
             });
             res.json(result);
         });
