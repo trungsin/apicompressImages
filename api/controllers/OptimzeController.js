@@ -100,7 +100,7 @@ module.exports = {
                             const obj = JSON.parse(stringdata);
                             console.log(obj.input);    
                             var sqli = "UPDATE product_images SET optimalfile = '"+row.originalfile+"',timeoptimal=1, originalsize='"+obj.size_in+"', optimalsize='"+obj.size_output+"',percent='"+obj.percent+"' WHERE imageID = '"+row.imageID+"'";
-                            await db.query(sql, function (err, resulti) {
+                            await db.query(sqli, function (err, resulti) {
                             // if (err) throw err;
                                 console.log(resulti.affectedRows + " record(s) updated");
                             });
