@@ -49,7 +49,7 @@ module.exports = {
 
         let sql = 'SELECT * FROM product_images WHERE timeoptimal=0 limit 0, 24';
         //const [ rows , fields ] = await db.execute(sql);
-        db.query(sql, function (err, result, fields) {
+        db.query(sql, async function (err, result, fields) {
             // if any error while executing above query, throw error
             if (err) throw err;
             // if there is no error, you have the result
