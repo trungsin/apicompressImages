@@ -49,13 +49,12 @@ module.exports = {
 
         let sql = 'SELECT * FROM product_images WHERE timeoptimal=0 limit 0, 24';
         //const [ rows , fields ] = await db.execute(sql);
-        db.query(sql, async function (err, result, fields) {
+        db.query(sql, function (err, result, fields) {
             // if any error while executing above query, throw error
             if (err) throw err;
             // if there is no error, you have the result
             // iterate for all the rows in result
-            var sqli ="";
-            await Promise.all(Object.keys(result).forEach(async function(key) {
+            Object.keys(result).forEach(async function(key) {
                 var row = result[key];
                 try {
                   if (fs.existsSync(rootOutput+row.originalfile)) {
@@ -100,8 +99,11 @@ module.exports = {
                             const stringdata = JSON.stringify(statistic);
                             const obj = JSON.parse(stringdata);
                             console.log(obj.input);    
-                            sqli += "UPDATE product_images SET optimalfile = '"+row.originalfile+"',timeoptimal=1, originalsize='"+obj.size_in+"', optimalsize='"+obj.size_output+"',percent='"+obj.percent+"' WHERE imageID = '"+row.imageID+"';";
-                            
+                            var sqli = "UPDATE product_images SET optimalfile = '"+row.originalfile+"',timeoptimal=1, originalsize='"+obj.size_in+"', optimalsize='"+obj.size_output+"',percent='"+obj.percent+"' WHERE imageID = '"+row.imageID+"'";
+                            await db.query(sql, function (err, resulti) {
+                            // if (err) throw err;
+                                console.log(resulti.affectedRows + " record(s) updated");
+                            });
                         } else
                         {
                             ;
@@ -110,20 +112,14 @@ module.exports = {
                         //res.json(statistic); 
                     });
                 } else {
-                    sqli += "UPDATE product_images SET timeoptimal=9 WHERE imageID = '"+row.imageID+"';";
-                    // await db.query(sql, function (err, result) {
-                    // // if (err) throw err;
-                    //     console.log(result.affectedRows + " record(s) updated");
-                    // });
+                    var sql = "UPDATE product_images SET timeoptimal=9 WHERE imageID = '"+row.imageID+"'";
+                    await db.query(sql, function (err, result) {
+                    // if (err) throw err;
+                        console.log(result.affectedRows + " record(s) updated");
+                    });
                 }
-                
                 //ket thuc nen anh 
               //console.log(row.apply);
-            }));
-            await db.query(sqli, function (err, resulti) {
-            // if (err) throw err;
-                console.log(sqli);
-                console.log(resulti.affectedRows + " record(s) updated");
             });
             res.json(result);
         });
