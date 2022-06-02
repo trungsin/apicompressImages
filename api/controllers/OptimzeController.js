@@ -86,7 +86,7 @@ module.exports = {
                         // errors - all errros happened list
                     };
                 
-                    processImages( async (error, statistic, completed) => {
+                    processImages((error, statistic, completed) => {
                         // if (error) {
                         //     console.log('Error happen while processing file');
                         //     console.log(error);
@@ -100,7 +100,7 @@ module.exports = {
                             const obj = JSON.parse(stringdata);
                             console.log(obj.input);    
                             var sqli = "UPDATE product_images SET optimalfile = '"+row.originalfile+"',timeoptimal=1, originalsize='"+obj.size_in+"', optimalsize='"+obj.size_output+"',percent='"+obj.percent+"' WHERE imageID = '"+row.imageID+"'";
-                            await db.query(sqli, function (err, resulti) {
+                            db.query(sqli, function (err, resulti) {
                             // if (err) throw err;
                                 console.log(resulti.affectedRows + " record(s) updated");
                             });
