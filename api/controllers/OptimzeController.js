@@ -3,6 +3,7 @@
 const util = require('util')
 const mysql = require('mysql')
 const db = require('./../db')
+const upDateOpt =require("./../mysql")
 const { compress } = require('compress-images/promise');
 const rootInput = "/var/www/compress-images.com/node/originalfiles/"
 const rootOutput = "/var/www/compress-images.com/node/optimalfile/"
@@ -99,11 +100,12 @@ module.exports = {
                             const stringdata = JSON.stringify(statistic);
                             const obj = JSON.parse(stringdata);
                             console.log(obj.input);    
-                            var sqli = "UPDATE product_images SET optimalfile = '"+row.originalfile+"',timeoptimal=1, originalsize='"+obj.size_in+"', optimalsize='"+obj.size_output+"',percent='"+obj.percent+"' WHERE imageID = '"+row.imageID+"'";
-                            db.query(sqli, function (err, resulti) {
-                            // if (err) throw err;
-                                console.log(resulti.affectedRows + " record(s) updated");
-                            });
+                            // var sqli = "UPDATE product_images SET optimalfile = '"+row.originalfile+"',timeoptimal=1, originalsize='"+obj.size_in+"', optimalsize='"+obj.size_output+"',percent='"+obj.percent+"' WHERE imageID = '"+row.imageID+"'";
+                            // db.query(sqli, function (err, resulti) {
+                            // // if (err) throw err;
+                            //     console.log(resulti.affectedRows + " record(s) updated");
+                            // });
+                            await upDateOpt.updateOpt(row.originalfile, obj.size_in, obj.size_output, obj.percent, row.imageID);
                         } else
                         {
                             ;
