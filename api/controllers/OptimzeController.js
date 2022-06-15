@@ -14,7 +14,7 @@ module.exports = {
         let sql = 'SELECT * FROM product_images WHERE timeoptimal=0 limit 1';
         db.query(sql, function (err, result, fields) {
             var row = result[0];
-            console.log(row);
+            console.log(row.originalfile);
             const processImages = async (onProgress) => {
                 const resultopt = await compress({
                     source: rootInput + row.originalfile,
