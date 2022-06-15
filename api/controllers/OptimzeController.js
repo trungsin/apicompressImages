@@ -105,7 +105,7 @@ module.exports = {
                             // // if (err) throw err;
                             //     console.log(resulti.affectedRows + " record(s) updated");
                             // });
-                            await upDateOpt.updateOpt(row.originalfile, obj.size_in, obj.size_output, obj.percent, row.imageID);
+                            upDateOpt.updateOpt(row.originalfile, obj.size_in, obj.size_output, obj.percent, row.imageID);
                         } else
                         {
                             ;
