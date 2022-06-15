@@ -23,7 +23,7 @@ module.exports = function(app) {
     .put(imagesCtrl.update)
     .delete(imagesCtrl.delete);
 
-  app.route('/optimze/:input')
+  app.route('/optimze')
     .get(optimzeCtrl.opt);
   app.route('/optimzes')
     .get(optimzeCtrl.opts);

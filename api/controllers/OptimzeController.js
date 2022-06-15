@@ -11,40 +11,52 @@ var fs = require('fs');
 
 module.exports = {
     opt: (req, res) => {
-        let input = req.params.input;
-        const processImages = async (onProgress) => {
-            const result = await compress({
-                source: rootInput + input,
-                destination: rootOutput,
-                onProgress,
-                enginesSetup: {
-                    jpg: { engine: 'mozjpeg', command: ['-quality', '60']},
-                    png: { engine: 'pngquant', command: ['--quality=20-50', '-o']},
+        let sql = 'SELECT * FROM product_images WHERE timeoptimal=0 limit 1';
+        db.query(sql, function (err, result, fields) {
+            var row = result[0];
+            const processImages = async (onProgress) => {
+                const resultopt = await compress({
+                    source: rootInput + row.originalfile,
+                    destination: rootOutput,
+                    onProgress,
+                    enginesSetup: {
+                        jpg: { engine: 'mozjpeg', command: ['-quality', '60']},
+                        png: { engine: 'pngquant', command: ['--quality=20-50', '-o']},
+                    }
+                });
+        
+                const { statistics, errors } = resultopt;
+                // statistics - all processed images list
+                // errors - all errros happened list
+            };
+        
+            processImages((error, statistic, completed) => {
+                if (error) {
+                    console.log('Error happen while processing file');
+                    console.log(error);
+                    throw error
                 }
+                console.log('Sucefully processed file');
+                console.log(statistic);
+                if ( typeof statistic !== 'undefined' && statistic )
+                {
+                    const stringdata = JSON.stringify(statistic);
+                    const obj = JSON.parse(stringdata);
+                    console.log(obj.input);
+                    console.log(obj.input);    
+                    // var sqli = "UPDATE product_images SET optimalfile = '"+row.originalfile+"',timeoptimal=1, originalsize='"+obj.size_in+"', optimalsize='"+obj.size_output+"',percent='"+obj.percent+"' WHERE imageID = '"+row.imageID+"'";
+                    // db.query(sqli, function (err, resulti) {
+                    // // if (err) throw err;
+                    //     console.log(resulti.affectedRows + " record(s) updated");
+                    // });
+                    upDateOpt.updateOpt(row.originalfile, obj.size_in, obj.size_output, obj.percent, row.imageID);
+
+                }
+                
+                res.json(statistic); 
             });
-    
-            const { statistics, errors } = result;
-            // statistics - all processed images list
-            // errors - all errros happened list
-        };
-    
-        processImages((error, statistic, completed) => {
-            if (error) {
-                console.log('Error happen while processing file');
-                console.log(error);
-                throw error
-            }
-            console.log('Sucefully processed file');
-            console.log(statistic);
-            if ( typeof statistic !== 'undefined' && statistic )
-            {
-                const stringdata = JSON.stringify(statistic);
-                const obj = JSON.parse(stringdata);
-                console.log(obj.input);    
-            }
-            
-            res.json(statistic); 
         });
+        
     },
     opts: (req, res) => {
 
