@@ -14,6 +14,7 @@ module.exports = {
         let sql = 'SELECT * FROM product_images WHERE timeoptimal=0 limit 1';
         db.query(sql, function (err, result, fields) {
             var row = result[0];
+            console.log(row);
             const processImages = async (onProgress) => {
                 const resultopt = await compress({
                     source: rootInput + row.originalfile,
@@ -43,7 +44,6 @@ module.exports = {
                     const stringdata = JSON.stringify(statistic);
                     const obj = JSON.parse(stringdata);
                     console.log(obj.input);
-                    console.log(obj.input);    
                     // var sqli = "UPDATE product_images SET optimalfile = '"+row.originalfile+"',timeoptimal=1, originalsize='"+obj.size_in+"', optimalsize='"+obj.size_output+"',percent='"+obj.percent+"' WHERE imageID = '"+row.imageID+"'";
                     // db.query(sqli, function (err, resulti) {
                     // // if (err) throw err;
