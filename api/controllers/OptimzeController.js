@@ -31,7 +31,7 @@ module.exports = {
             if (fs.existsSync(rootInput+originalfile)) {
                 const processImages = async (onProgress) => {
                     const resultopt = await compress({
-                        source: rootInput + row.originalfile,
+                        source: rootInput + originalfile,
                         destination: rootOutput,
                         onProgress,
                         enginesSetup: {
