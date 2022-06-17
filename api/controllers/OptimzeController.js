@@ -15,7 +15,10 @@ module.exports = {
         db.query(sql, function (err, result, fields) {
             var row = result[0];
             console.log(row.originalfile);
-            var originalfile = row.originalfile.substring(0, row.originalfile.indexOf("?v="));
+            const lenOriginalfile = row.originalfile.indexOf("?v=");
+            var originalfile = row.originalfile;
+            if (lenOriginalfile > 0)
+                originalfile = row.originalfile.substring(0, lenOriginalfile);
             console.log(originalfile);
             try {
                 if (fs.existsSync(rootOutput+originalfile)) {
