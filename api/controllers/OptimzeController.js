@@ -26,7 +26,9 @@ module.exports = {
               } catch(err) {
                 console.error(err)
             }
-            if (fs.existsSync(rootInput+row.originalfile)) {
+            var originalfile = row.originalfile.substring(0, row.originalfile.indexOf("?v="));
+            console.log(originalfile);
+            if (fs.existsSync(rootInput+originalfile)) {
                 const processImages = async (onProgress) => {
                     const resultopt = await compress({
                         source: rootInput + row.originalfile,
@@ -61,7 +63,7 @@ module.exports = {
                         // // if (err) throw err;
                         //     console.log(resulti.affectedRows + " record(s) updated");
                         // });
-                        upDateOpt.updateOpt(row.originalfile, obj.size_in, obj.size_output, obj.percent, row.imageID,1);
+                        upDateOpt.updateOpt(originalfile, obj.size_in, obj.size_output, obj.percent, row.imageID,1);
 
                     }
                     
