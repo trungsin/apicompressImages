@@ -15,9 +15,11 @@ module.exports = {
         db.query(sql, function (err, result, fields) {
             var row = result[0];
             console.log(row.originalfile);
+            var originalfile = row.originalfile.substring(0, row.originalfile.indexOf("?v="));
+            console.log(originalfile);
             try {
-                if (fs.existsSync(rootOutput+row.originalfile)) {
-                  fs.unlink(rootOutput+row.originalfile, function (err) {
+                if (fs.existsSync(rootOutput+originalfile)) {
+                  fs.unlink(rootOutput+originalfile, function (err) {
                       if (err)  console.log(err);
                       // if no error, file has been deleted successfully
                       console.log('File deleted!');
@@ -26,8 +28,6 @@ module.exports = {
               } catch(err) {
                 console.error(err)
             }
-            var originalfile = row.originalfile.substring(0, row.originalfile.indexOf("?v="));
-            console.log(originalfile);
             if (fs.existsSync(rootInput+originalfile)) {
                 const processImages = async (onProgress) => {
                     const resultopt = await compress({
