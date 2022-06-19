@@ -69,6 +69,7 @@ module.exports = {
                 });
             } else {
                 upDateOpt.updateOpt(row.originalfile, 0, 0, "0%", row.imageID,9);
+                res.json("");
             }
         });
         
