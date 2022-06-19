@@ -19,7 +19,7 @@ module.exports = {
             var originalfile = row.originalfile;
             if (lenOriginalfile > 0)
                 originalfile = row.originalfile.substring(0, lenOriginalfile);
-            extension = fileName.split('.').pop();
+            extension = originalfile.split('.').pop();
             if(extension == "webp"){
                 upDateOpt.updateOpt(row.originalfile, 0, 0, "0%", row.imageID,8);
                 res.json("");
