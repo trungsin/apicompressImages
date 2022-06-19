@@ -58,7 +58,9 @@ module.exports = {
                         if (error) {
                             console.log('Error happen while processing file');
                             console.log(error);
-                            throw error
+                            //throw error
+                            upDateOpt.updateOpt(originalfile+"; "+"Error happen while processing file", 0, 0, 0, row.imageID,3);
+                            res.json("error");
                         }
                         console.log('Sucefully processed file');
                         console.log(statistic);
