@@ -14,12 +14,12 @@ module.exports = {
         let sql = 'SELECT * FROM product_images WHERE timeoptimal=0 limit 1';
         db.query(sql, function (err, result, fields) {
             var row = result[0];
-            //console.log(row.originalfile);
+            console.log(row.originalfile);
             const lenOriginalfile = row.originalfile.indexOf("?v=");
             var originalfile = row.originalfile;
             if (lenOriginalfile > 0)
                 originalfile = row.originalfile.substring(0, lenOriginalfile);
-            //console.log(originalfile);
+            console.log(originalfile);
             try {
                 console.log("proccessing check original file ")
                 if (fs.existsSync(rootOutput+originalfile)) {
