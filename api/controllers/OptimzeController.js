@@ -61,19 +61,20 @@ module.exports = {
                             //throw error
                             upDateOpt.updateOpt(originalfile+"; "+"Error happen while processing file", 0, 0, 0, row.imageID,3);
                             res.json("error");
-                        }
-                        console.log('Sucefully processed file');
-                        console.log(statistic);
-                        if ( typeof statistic !== 'undefined' && statistic )
-                        {
-                            const stringdata = JSON.stringify(statistic);
-                            const obj = JSON.parse(stringdata);
-                            console.log(obj.input);
-                            upDateOpt.updateOpt(originalfile, obj.size_in, obj.size_output, obj.percent, row.imageID,1);
-    
+                        } else {
+                            console.log('Sucefully processed file');
+                            console.log(statistic);
+                            if ( typeof statistic !== 'undefined' && statistic )
+                            {
+                                const stringdata = JSON.stringify(statistic);
+                                const obj = JSON.parse(stringdata);
+                                console.log(obj.input);
+                                upDateOpt.updateOpt(originalfile, obj.size_in, obj.size_output, obj.percent, row.imageID,1);
+        
+                            }
+                            res.json(statistic); 
                         }
                         
-                        res.json(statistic); 
                     });
                 } else {
                     upDateOpt.updateOpt(row.originalfile, 0, 0, "0%", row.imageID,9);
