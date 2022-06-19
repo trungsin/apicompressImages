@@ -21,6 +21,7 @@ module.exports = {
                 originalfile = row.originalfile.substring(0, lenOriginalfile);
             //console.log(originalfile);
             try {
+                console.log("proccessing check original file ")
                 if (fs.existsSync(rootOutput+originalfile)) {
                   fs.unlink(rootOutput+originalfile, function (err) {
                       if (err)  console.log(err);
@@ -32,6 +33,7 @@ module.exports = {
                 console.error(err)
             }
             if (fs.existsSync(rootInput+originalfile)) {
+                console.log("compressing file ")
                 const processImages = async (onProgress) => {
                     const resultopt = await compress({
                         source: rootInput + originalfile,
