@@ -11,7 +11,7 @@ var fs = require('fs');
 
 module.exports = {
     opt: (req, res) => {
-        let sql = 'SELECT * FROM product_images WHERE timeoptimal=10 limit 1';
+        let sql = 'SELECT * FROM product_images WHERE timeoptimal=0 limit 1';
         db.query(sql, function (err, result, fields) {
             if (result.length === 0) {
                 res.json("null");
