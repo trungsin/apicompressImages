@@ -132,8 +132,8 @@ module.exports = {
                                 onProgress,
                                 enginesSetup: {
                                     jpg: { engine: 'mozjpeg', command: ['-quality', '60']},
-                                    png: { engine: 'tinify', key: "hjnnngRqg8x9nTmbKQMYBHz5nyxTlS0H", command: false},
-                                    png: {engine: 'optipng', command: false}
+                                    png: { engine: 'tinify', key: "hjnnngRqg8x9nTmbKQMYBHz5nyxTlS0H", command: false}
+                                    //png: {engine: 'optipng', command: false}
                                 }
                             });
                     
