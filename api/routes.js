@@ -24,9 +24,9 @@ module.exports = function(app) {
     .delete(imagesCtrl.delete);
 
   app.route('/optimze')
-    .get(optimzeCtrl.opttini);
-    app.route('/optimze_tini')
     .get(optimzeCtrl.opt);
+  app.route('/optimze_tini')
+    .get(optimzeCtrl.opttini);
   app.route('/optimzes')
     .get(optimzeCtrl.opts);
 };
