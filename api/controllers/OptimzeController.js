@@ -73,6 +73,11 @@ module.exports = {
                                     const obj = JSON.parse(stringdata);
                                     console.log(obj.input);
                                     upDateOpt.updateOpt(originalfile, obj.size_in, obj.size_output, obj.percent, row.imageID,1);
+                                    fs.unlink(rootInput+originalfile, function (err) {
+                                        if (err)  console.log(err);
+                                        // if no error, file has been deleted successfully
+                                        console.log('File deleted!');
+                                    });
             
                                 }
                                 res.json(statistic); 
