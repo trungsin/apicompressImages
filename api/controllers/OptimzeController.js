@@ -8,7 +8,6 @@ const { compress } = require('compress-images/promise');
 const rootInput = process.env.ROOT_HOST+ "/node/originalfiles/"
 const rootOutput = process.env.ROOT_HOST+ "/node/optimalfile/"
 var fs = require('fs');
-const { json } = require('sequelize/types')
 
 module.exports = {
     opt: (req, res) => {
