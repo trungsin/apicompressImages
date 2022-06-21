@@ -13,7 +13,7 @@ module.exports = {
     opt: (req, res) => {
         let sql = 'SELECT * FROM product_images WHERE timeoptimal=10 limit 1';
         db.query(sql, function (err, result, fields) {
-            if (err) {
+            if (result.length === 0) {
                 res.json("null");
             } else {
                 var row = result[0];
