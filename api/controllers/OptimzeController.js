@@ -94,6 +94,90 @@ module.exports = {
         });
         
     },
+    opttini: (req, res) => {
+        let sql = 'SELECT * FROM product_images WHERE timeoptimal=3 limit 1';
+        db.query(sql, function (err, result, fields) {
+            if (result.length === 0) {
+                res.json("null");
+            } else {
+                var row = result[0];
+                console.log(row.originalfile);
+                const lenOriginalfile = row.originalfile.indexOf("?v=");
+                var originalfile = row.originalfile;
+                if (lenOriginalfile > 0)
+                    originalfile = row.originalfile.substring(0, lenOriginalfile);
+                const extension = originalfile.split('.').pop();
+                if(extension == "webp"){
+                    upDateOpt.updateOpt(row.originalfile, 0, 0, "0%", row.imageID,8);
+                    res.json("");
+                } else {
+                    try {
+                        console.log("proccessing check original file ")
+                        if (fs.existsSync(rootOutput+originalfile)) {
+                        fs.unlink(rootOutput+originalfile, function (err) {
+                            if (err)  console.log(err);
+                            // if no error, file has been deleted successfully
+                            console.log('File deleted!');
+                        });
+                        }
+                        } catch(err) {
+                        console.error(err)
+                    }
+                    if (fs.existsSync(rootInput+originalfile)) {
+                        console.log("compressing file ")
+                        const processImages = async (onProgress) => {
+                            const resultopt = await compress({
+                                source: rootInput + originalfile,
+                                destination: rootOutput,
+                                onProgress,
+                                enginesSetup: {
+                                    jpg: { engine: 'mozjpeg', command: ['-quality', '60']},
+                                    png: { engine: 'tinify', key: "hjnnngRqg8x9nTmbKQMYBHz5nyxTlS0H", command: ['copyright', 'creation', 'location']},
+                                }
+                            });
+                    
+                            const { statistics, errors } = resultopt;
+                            // statistics - all processed images list
+                            // errors - all errros happened list
+                        };
+                    
+                        processImages((error, statistic, completed) => {
+                            if (error) {
+                                console.log('Error happen while processing file');
+                                console.log(error);
+                                //throw error
+                                upDateOpt.updateOpt(originalfile+"; "+"Error happen while processing file", 0, 0, 0, row.imageID,3);
+                                res.json("error");
+                            } else {
+                                console.log('Sucefully processed file');
+                                console.log(statistic);
+                                if ( typeof statistic !== 'undefined' && statistic )
+                                {
+                                    const stringdata = JSON.stringify(statistic);
+                                    const obj = JSON.parse(stringdata);
+                                    console.log(obj.input);
+                                    upDateOpt.updateOpt(originalfile, obj.size_in, obj.size_output, obj.percent, row.imageID,1);
+                                    fs.unlink(rootInput+originalfile, function (err) {
+                                        if (err)  console.log(err);
+                                        // if no error, file has been deleted successfully
+                                        console.log('File deleted!');
+                                    });
+            
+                                }
+                                res.json(statistic); 
+                            }
+                            
+                        });
+                    } else {
+                        upDateOpt.updateOpt(row.originalfile, 0, 0, "0%", row.imageID,9);
+                        res.json("");
+                    }
+                }
+            }
+            
+        });
+        
+    },
     opts: (req, res) => {
 
         let sql = 'SELECT * FROM product_images WHERE timeoptimal=0 limit 0, 24';
